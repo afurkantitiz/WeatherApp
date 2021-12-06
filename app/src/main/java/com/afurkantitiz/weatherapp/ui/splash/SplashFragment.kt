@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
+import com.afurkantitiz.weatherapp.R
 import com.afurkantitiz.weatherapp.base.BaseFragment
 import com.afurkantitiz.weatherapp.databinding.FragmentSplashBinding
 
@@ -21,7 +23,7 @@ class SplashFragment: BaseFragment<FragmentSplashBinding>(FragmentSplashBinding:
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                Log.v("LottieSplashAnimation", "Ended")
+                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
             }
 
             override fun onAnimationCancel(animation: Animator?) {
