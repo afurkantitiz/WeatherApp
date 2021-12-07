@@ -1,15 +1,20 @@
 package com.afurkantitiz.weatherapp.ui.weather
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.afurkantitiz.weatherapp.base.BaseFragment
+import com.afurkantitiz.weatherapp.data.entity.WeatherResponse
 import com.afurkantitiz.weatherapp.databinding.FragmentWeatherBinding
 import com.afurkantitiz.weatherapp.utils.Resource
+import com.afurkantitiz.weatherapp.utils.WeatherIconHelper
+import com.afurkantitiz.weatherapp.utils.gone
+import com.afurkantitiz.weatherapp.utils.show
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBinding::inflate) {
@@ -26,15 +31,35 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
         viewModel.getWeather(lat, lon, appId).observe(viewLifecycleOwner, { response ->
             when (response.status) {
                 Resource.Status.LOADING -> {
-                    Log.v("weatherStatus", "Loading")
+                    binding.lottieLoading.show()
+                    binding.lottieLoading.playAnimation()
+                    binding.weatherLayout.gone()
                 }
                 Resource.Status.SUCCESS -> {
-                    Log.v("weatherStatus", response.data?.current?.feelsLike.toString())
+                    binding.lottieLoading.cancelAnimation()
+                    binding.lottieLoading.gone()
+                    binding.weatherLayout.show()
+
+                    setViews(response.data)
                 }
                 Resource.Status.ERROR -> {
+                    binding.lottieLoading.gone()
                     Log.v("weatherStatus", response.message.toString())
                 }
             }
         })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setViews(data: WeatherResponse?) {
+        binding.apply {
+            timeZone.text = data?.timezone
+            temp.text = data?.current?.temp.toString() + "°"
+
+            Glide
+                .with(requireContext())
+                .load(data?.current?.weather?.get(0)?.icon?.let { WeatherIconHelper.getBigIconUrl(it) })
+                .into(binding.weatherIcon)
+        }
     }
 }
