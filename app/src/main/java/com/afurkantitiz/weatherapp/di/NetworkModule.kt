@@ -53,7 +53,7 @@ class NetworkModule {
 
     @Provides
     fun provideEndPoint(): EndPoint {
-        return EndPoint("https://newsapi.org/v2/")
+        return EndPoint("https://api.openweathermap.org/data/2.5/")
     }
 }
 

@@ -20,5 +20,18 @@
         android:id="@+id/homeFragment"
         android:name="com.afurkantitiz.weatherapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weatherFragment"
+        android:name="com.afurkantitiz.weatherapp.ui.weather.WeatherFragment"
+        android:label="fragment_weather"
+        tools:layout="@layout/fragment_weather" >
+        <argument
+            android:name="appID"
+            app:argType="string" />
+    </fragment>
 </navigation>
