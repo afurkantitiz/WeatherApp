@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
             android:fontFamily="@font/baloobhaijaan2_semibold"
-            android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,13 +52,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dailyWeathersRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/temp" />
+            app:layout_constraintTop_toBottomOf="@+id/temp"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_daily_weather_card" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

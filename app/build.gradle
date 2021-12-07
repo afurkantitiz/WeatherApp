@@ -87,4 +87,7 @@ dependencies {
     //Lottie
     def lottie_version = "3.7.1"
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    //Location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 }
