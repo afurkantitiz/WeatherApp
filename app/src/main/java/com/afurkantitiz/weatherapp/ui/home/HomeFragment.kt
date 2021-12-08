@@ -5,6 +5,7 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.afurkantitiz.weatherapp.base.BaseFragment
 import com.afurkantitiz.weatherapp.databinding.FragmentHomeBinding
+import com.afurkantitiz.weatherapp.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,8 +18,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun listeners() {
         binding.confirmButton.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToWeatherFragment(binding.apiKeyEdtLayout.editText?.text.toString())
-            findNavController().navigate(action)
+            if (binding.apiKeyEdtLayout.editText?.text.toString().isNotEmpty()){
+                val action = HomeFragmentDirections.actionHomeFragmentToWeatherFragment(binding.apiKeyEdtLayout.editText?.text.toString())
+                findNavController().navigate(action)
+            }else
+                binding.apiKeyEdtLayout.error = "Api Key boş olamaz!"
         }
     }
 }

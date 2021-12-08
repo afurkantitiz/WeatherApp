@@ -43,6 +43,13 @@ class WeatherFragment : BaseFragment<FragmentWeatherBinding>(FragmentWeatherBind
         requestPermission()
         getLocation()
         initAdapter()
+        listeners()
+    }
+
+    private fun listeners() {
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
